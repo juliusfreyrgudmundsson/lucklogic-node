@@ -1,0 +1,86 @@
+{
+  "name": "@lucklogic/node",
+  "version": "0.1.0",
+  "description": "Official Node.js client for the LuckLogic API: redeem on-pack codes, run campaigns, fulfil prizes and verify webhooks.",
+  "license": "MIT",
+  "author": "LuckLogic <hello@lucklogic.dev>",
+  "homepage": "https://lucklogic.dev/docs",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/juliusfreyrgudmundsson/lucklogic-node.git"
+  },
+  "keywords": [
+    "lucklogic",
+    "instant-win",
+    "promotions",
+    "on-pack",
+    "sdk"
+  ],
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "sideEffects": false,
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "generate": "node scripts/generate.mjs",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "test": "vitest",
+    "test:ci": "vitest run",
+    "test:live": "vitest run tests/live",
+    "prepublishOnly": "npm run typecheck && npm run test:ci && npm run build"
+  },
+  "simple-git-hooks": {
+    "pre-commit": "npx lint-staged",
+    "pre-push": "npm run typecheck && npm run test:ci"
+  },
+  "lint-staged": {
+    "*.{ts,js,mjs}": [
+      "prettier --write",
+      "eslint --fix"
+    ],
+    "*.{json,md,yml,yaml}": [
+      "prettier --write"
+    ]
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.5",
+    "@trivago/prettier-plugin-sort-imports": "^5.2.2",
+    "@types/node": "^24.19.1",
+    "eslint": "^9.39.5",
+    "eslint-config-prettier": "^10.1.8",
+    "globals": "^17.13.0",
+    "jiti": "^2.7.0",
+    "lint-staged": "^15.5.2",
+    "openapi-typescript": "^7.13.0",
+    "prettier": "^3.9.9",
+    "simple-git-hooks": "^2.14.0",
+    "tsup": "^8.5.1",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.71.1",
+    "vitest": "^3.2.7"
+  }
+}
